@@ -8,14 +8,15 @@
     "commit": "node bin/git-cz",
     "build": "babel src --out-dir dist",
     "build:watch": "babel --watch src --out-dir dist",
-    "prepare": "not-in-install && npm run build || true",
+    "prepare": "npm run snyk-protect && not-in-install && npm run build || true",
     "report-coverage": "nyc report --reporter=lcov | codecov",
     "write-coverage": "nyc report --reporter=lcov --reporter=cobertura --reporter=html",
     "semantic-release": "npx semantic-release",
     "start": "npm run test:watch",
     "test-actual": "mocha --reporter=mocha-multi-reporters --reporter-options configFile=./test/mochareporters.json test/tests/index.js",
     "test": "nyc --require @babel/register npm run test-actual",
-    "test:watch": "nodemon -q --ignore test/.tmp/ --ignore test/artifacts/ --ignore coverage/ --exec \"npm run test\" --"
+    "test:watch": "nodemon -q --ignore test/.tmp/ --ignore test/artifacts/ --ignore coverage/ --exec \"npm run test\" --",
+    "snyk-protect": "snyk-protect"
   },
   "config": {
     "commitizen": {
@@ -75,17 +76,18 @@
     "cz-conventional-changelog": "3.0.1",
     "dedent": "0.7.0",
     "detect-indent": "6.0.0",
-    "find-node-modules": "2.0.0",
+    "find-node-modules": "2.1.1",
     "find-root": "1.1.0",
     "fs-extra": "8.1.0",
     "glob": "7.1.4",
     "inquirer": "6.5.0",
     "is-utf8": "^0.2.1",
-    "lodash": "4.17.15",
-    "minimist": "1.2.0",
-    "shelljs": "0.7.6",
+    "lodash": "4.17.21",
+    "minimist": "1.2.6",
+    "shelljs": "0.8.5",
     "strip-bom": "4.0.0",
-    "strip-json-comments": "3.0.1"
+    "strip-json-comments": "3.0.1",
+    "@snyk/protect": "latest"
   },
   "babel": {
     "presets": [
@@ -116,5 +118,6 @@
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/commitizen"
-  }
+  },
+  "snyk": true
 }
